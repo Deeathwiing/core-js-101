@@ -505,8 +505,8 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(arr) {
-  return arr.sort();
+function sortCitiesArray(/* arr */) {
+  throw new Error('Not implemented');
 }
 
 /**
@@ -544,8 +544,17 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+
+function easyPeasy2(start, end) {
+  const newArr = [];
+  for (let i = start; i <= end; i += 1) {
+    newArr.push(i);
+  }
+  return newArr;
+}
+
+function getIntervalArray(start, end) {
+  return easyPeasy2(start, end);
 }
 
 /**
@@ -559,8 +568,18 @@ function getIntervalArray(/* start, end */) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+
+function easyPeasy4(arr) {
+  const newArr = [];
+  arr.forEach((element) => {
+    if (!newArr.includes(element)) {
+      newArr.push(element);
+    }
+  });
+  return newArr;
+}
+function distinct(arr) {
+  return easyPeasy4(arr);
 }
 
 /**
@@ -611,7 +630,7 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
+function selectMany(/* arr4, childrenSelector */) {
   throw new Error('Not implemented');
 }
 

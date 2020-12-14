@@ -19,8 +19,8 @@
  *    'Tue, 26 Jan 2016 13:48:02 GMT' => Date()
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
-function parseDataFromRfc2822(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromRfc2822(value) {
+  return new Date(value);
 }
 
 /**
@@ -34,8 +34,8 @@ function parseDataFromRfc2822(/* value */) {
  *    '2016-01-19T16:07:37+00:00'    => Date()
  *    '2016-01-19T08:07:37Z' => Date()
  */
-function parseDataFromIso8601(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromIso8601(value) {
+  return new Date(value);
 }
 
 
@@ -53,8 +53,10 @@ function parseDataFromIso8601(/* value */) {
  *    Date(2012,1,1)    => true
  *    Date(2015,1,1)    => false
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(date) {
+  const year = date.getYear() + 1900;
+  // eslint-disable-next-line eqeqeq
+  return new Date(year, 1, 29).getMonth() == 1;
 }
 
 
@@ -73,8 +75,58 @@ function isLeapYear(/* date */) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
-function timeSpanToString(/* startDate, endDate */) {
-  throw new Error('Not implemented');
+function timeSpanToString(startDate, endDate) {
+  let temp = endDate.getTime() - startDate.getTime();
+
+
+  let hours = Math.floor(temp / (1000 * 60 * 60));
+  temp %= (1000 * 60 * 60);
+
+  if (hours < 10) {
+    hours = hours.toString();
+    hours = `0${hours}`;
+  }
+
+  let minutes = Math.floor(temp / (1000 * 60));
+  temp %= (1000 * 60);
+
+  if (minutes < 10) {
+    minutes = minutes.toString();
+    minutes = `0${minutes}`;
+  }
+
+  let seconds = Math.floor(temp / (1000));
+  temp %= (1000);
+
+  if (seconds < 10) {
+    seconds = seconds.toString();
+    seconds = `0${seconds}`;
+  }
+
+  let milliseconds = temp;
+
+  switch (true) {
+    case milliseconds < 10:
+      milliseconds = milliseconds.toString();
+      milliseconds = `00${milliseconds}`;
+
+      break;
+
+    case milliseconds < 100:
+      milliseconds = milliseconds.toString();
+
+      milliseconds = `0${milliseconds}`;
+
+
+      break;
+
+
+    default:
+      break;
+  }
+
+
+  return `${hours}:${minutes}:${seconds}.${milliseconds}`;
 }
 
 
